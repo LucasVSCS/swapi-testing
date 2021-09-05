@@ -5,26 +5,33 @@ const DAY_IN_HOURS = 24
 const WEEK_IN_HOURS = 168
 const MONTH_IN_HOURS = 730
 const YEAR_IN_HOURS = 8760
+const API_URL = 'https://swapi.dev/api/starships/'
 
-let starshipsData = []
-
-export async function getStarshipData (apiUrl) {
-  instance.get(apiUrl).then(response => {
-    starshipsData = starshipsData.concat(response.data.results)
-
-    if (response.data.next) {
-      getStarshipData(response.data.next)
-    } else {
-      starshipsData = starshipsData.filter(item => {
-        return item.MGLT !== 'unknown'
-      })
-
-      return sessionStorage.setItem('starships', JSON.stringify(starshipsData))
-    }
-  })
+async function queryData (queryUrl) {
+  const response = await instance.get(queryUrl)
+  return response.data
 }
 
-function getTravelStopsQuantity (starship) {
+export async function getAllStarshipsData () {
+  let currentData = await queryData(API_URL)
+  let starshipsData = []
+
+  while (currentData.next) {
+    starshipsData = starshipsData.concat(currentData.results)
+
+    currentData = await queryData(currentData.next)
+  }
+
+  starshipsData = starshipsData.concat(currentData.results)
+
+  starshipsData = starshipsData.filter(item => {
+    return item.MGLT !== 'unknown'
+  })
+
+  return starshipsData
+}
+
+export function getTravelStopsQuantity (starship) {
   const EXEMPLO_DISTANCIA = 1000000
   let travelHours
   let timeInHours

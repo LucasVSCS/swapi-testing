@@ -7,7 +7,7 @@ export default function StarshipCard (props) {
     <Card>
       <CardContent>
         <Typography color='textSecondary' gutterBottom>
-          {props.shipName}
+          🚀 {props.starshipName}
         </Typography>
         <Typography>Necessary stops: {props.stopCount}</Typography>
       </CardContent>

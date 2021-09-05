@@ -1,30 +1,28 @@
 import '@fontsource/roboto'
 import { useEffect, useState } from 'react'
 import Container from '@material-ui/core/Container'
-import Grid from '@material-ui/core/Grid'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import MainPageStyle from './styles/MainPageStyle'
-
-import StarshipCard from './components/StarshipCard'
 import CalculatorForm from './components/CalculatorForm'
-
-import { getStarshipData } from './apis/starships-api'
+import StarshipContainer from './components/StarshipContainer'
+import { getAllStarshipsData } from './apis/starships-api'
 
 function App () {
   const classes = MainPageStyle()
   const [loading, setLoading] = useState(false)
-  const [shipData, setShipData] = useState({})
+  const [starships, setStarships] = useState([])
 
   useEffect(() => {
-    getStarshipData('https://swapi.dev/api/starships/').then(() => {
-      setShipData(JSON.parse(sessionStorage.getItem('starships')))
-      console.log(shipData)
-    })
-  }, [])
+    const fetchData = async () => {
+      setLoading(true)
+      const result = await getAllStarshipsData()
 
-  async function getData () {
-	  
-  }
+      setStarships(result)
+      setLoading(false)
+    }
+
+    fetchData()
+  }, [])
 
   return (
     <div>
@@ -33,20 +31,7 @@ function App () {
         <CalculatorForm />
       </Container>
       <Container maxWidth='lg' className={classes.dataContainer}>
-        <Grid container spacing={3}>
-          <Grid item xs={3}>
-            <StarshipCard />
-          </Grid>
-          <Grid item xs={3}>
-            <StarshipCard />
-          </Grid>
-          <Grid item xs={3}>
-            <StarshipCard />
-          </Grid>
-          <Grid item xs={3}>
-            <StarshipCard />
-          </Grid>
-        </Grid>
+        <StarshipContainer starships={starships} isLoading={loading} />
       </Container>
     </div>
   )

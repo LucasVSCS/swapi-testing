@@ -1,6 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles'
 
 const MainPageStyle = makeStyles(theme => ({
+  root: {
+    flexGrow: 1
+  },
   dataContainer: {
     marginTop: theme.spacing(4)
   },
