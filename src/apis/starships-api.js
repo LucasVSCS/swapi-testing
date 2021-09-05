@@ -35,7 +35,7 @@ export function getTravelStopsQuantity (starship, distance) {
   let travelHours
   let timeInHours
 
-  travelHours = distance / starship.MGLT
+  travelHours = parseInt(distance / starship.MGLT)
   timeInHours = getTimeInHours(starship.consumables)
 
   return parseInt(travelHours / timeInHours)
@@ -58,5 +58,5 @@ function getTimeInHours (timeString) {
     timeInHours = timeQuantity
   }
 
-  return timeInHours
+  return parseInt(timeInHours)
 }
