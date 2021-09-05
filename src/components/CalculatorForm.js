@@ -1,9 +1,8 @@
 import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import MainPageStyle from '../styles/MainPageStyle'
 
-export default function CalculatorForm () {
+export default function CalculatorForm (props) {
   const classes = MainPageStyle()
 
   return (
@@ -12,22 +11,15 @@ export default function CalculatorForm () {
         Starships MGL travel Calculator
       </Typography>
       <TextField
+        type='number'
         variant='outlined'
         margin='normal'
         fullWidth
         id='distance'
         label='Distance in MGL'
-        name='distance'
         autoFocus
+        onChange={e => props.setDistance(e.target.value)}
       />
-      <Button
-        fullWidth
-        variant='contained'
-        color='primary'
-        className={classes.button}
-      >
-        Calculate
-      </Button>
     </div>
   )
 }

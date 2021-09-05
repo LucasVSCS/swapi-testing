@@ -10,11 +10,11 @@ export default function StarshipContainer (props) {
   function returnStarships (data) {
     return data.map((item, index) => {
       return (
-        <Grid item xs={3}>
+        <Grid item xs={6} sm={3}>
           <StarshipCard
             key={index}
             starshipName={item.name}
-            stopCount={getTravelStopsQuantity(item)}
+            stopCount={getTravelStopsQuantity(item, props.distance)}
           />
         </Grid>
       )

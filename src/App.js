@@ -11,6 +11,7 @@ function App () {
   const classes = MainPageStyle()
   const [loading, setLoading] = useState(false)
   const [starships, setStarships] = useState([])
+  const [distance, setDistance] = useState(0)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,10 +29,14 @@ function App () {
     <div>
       <Container maxWidth='xs'>
         <CssBaseline />
-        <CalculatorForm />
+        <CalculatorForm setDistance={setDistance} />
       </Container>
       <Container maxWidth='lg' className={classes.dataContainer}>
-        <StarshipContainer starships={starships} isLoading={loading} />
+        <StarshipContainer
+          starships={starships}
+          isLoading={loading}
+          distance={distance}
+        />
       </Container>
     </div>
   )

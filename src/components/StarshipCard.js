@@ -9,7 +9,7 @@ export default function StarshipCard (props) {
         <Typography color='textSecondary' gutterBottom>
           🚀 {props.starshipName}
         </Typography>
-        <Typography>Necessary stops: {props.stopCount}</Typography>
+        <Typography>Necessary stops: {props.stopCount ? props.stopCount : 'N/A'}</Typography>
       </CardContent>
     </Card>
   )

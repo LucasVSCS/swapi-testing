@@ -31,18 +31,16 @@ export async function getAllStarshipsData () {
   return starshipsData
 }
 
-export function getTravelStopsQuantity (starship) {
-  const EXEMPLO_DISTANCIA = 1000000
+export function getTravelStopsQuantity (starship, distance) {
   let travelHours
   let timeInHours
 
-  travelHours = EXEMPLO_DISTANCIA / starship.MGLT
+  travelHours = distance / starship.MGLT
   timeInHours = getTimeInHours(starship.consumables)
 
   return parseInt(travelHours / timeInHours)
 }
 
-// Ta funcionando ok, arrumar pq ta feio
 function getTimeInHours (timeString) {
   let timeType = timeString.split(' ')[1]
   let timeQuantity = timeString.split(' ')[0]
