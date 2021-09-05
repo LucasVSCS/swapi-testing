@@ -7,11 +7,13 @@ const MONTH_IN_HOURS = 730
 const YEAR_IN_HOURS = 8760
 const API_URL = 'https://swapi.dev/api/starships/'
 
+// Initial API query
 async function queryData (queryUrl) {
   const response = await instance.get(queryUrl)
   return response.data
 }
 
+// Retrieve all valide starships to calculate their travel time
 export async function getAllStarshipsData () {
   let currentData = await queryData(API_URL)
   let starshipsData = []
@@ -31,6 +33,7 @@ export async function getAllStarshipsData () {
   return starshipsData
 }
 
+// Calculate how many times should a starship stops to restock in a travel
 export function getTravelStopsQuantity (starship, distance) {
   let travelHours
   let timeInHours
@@ -41,6 +44,7 @@ export function getTravelStopsQuantity (starship, distance) {
   return parseInt(travelHours / timeInHours)
 }
 
+// This function should convert a string based time in integer hours
 function getTimeInHours (timeString) {
   let timeType = timeString.split(' ')[1]
   let timeQuantity = timeString.split(' ')[0]
